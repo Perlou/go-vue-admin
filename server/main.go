@@ -1,5 +1,5 @@
 package main
 
-func main() {
-
-}
+import (
+	_ "go.uber.org/automaxprocs"
+)
