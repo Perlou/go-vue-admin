@@ -5,6 +5,8 @@ import (
 	"fmt"
 
 	"github.com/perlou/go-vue-admin/server/global"
+	"github.com/perlou/go-vue-admin/server/initialize"
+
 	// "github.com/perlou/go-vue-admin/server/service/system"
 	"go.uber.org/zap"
 )
@@ -16,15 +18,15 @@ type server interface {
 func RunWindowsServer() {
 	if global.GVA_CONFIG.System.UseMultipoint || global.GVA_CONFIG.System.UseRedis {
 		// 初始化redis服务
-		// initialize.Redis()
-		// initialize.RedisList()
+		initialize.Redis()
+		initialize.RedisList()
 	}
 
 	if global.GVA_CONFIG.System.UseMongo {
-		// err := initialize.Mongo.Initialization()
-		// if err != nil {
-		// 	zap.L().Error(fmt.Sprintf("%+v", err))
-		// }
+		err := initialize.Mongo.Initialization()
+		if err != nil {
+			zap.L().Error(fmt.Sprintf("%+v", err))
+		}
 	}
 	// 从db加载jwt数据
 	if global.GVA_DB != nil {
